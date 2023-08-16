@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int i=0; //start
+        int j=0; //end
+    deque<int>dq;      //used to enter the values such that front always contain max of the window
+        vector<int>v;
+        while (j<nums.size())
+        { ////check if last element of deque is greater than last element(window) ,pop back.
+            while(!dq.empty()&& dq.back()<nums[j]) dq.pop_back(); 
+        dq.push_back(nums[j]);// push back last element of window.
+          if(j-i+1<k)//check if window size islessthan K ,point j to the next index.
+          {
+              j++;
+          }
+          else if(j-i+1==k)//size ==k then push front value of deqeue(largest element in deque)
+          {  v.push_back(dq.front());
+            if(dq.front()==nums[i])dq.pop_front();//if front value ==ith element pop front
+              i++;
+              j++;//change  to the next window
+
+          }
+        }
+        return v;
+    }
+};
